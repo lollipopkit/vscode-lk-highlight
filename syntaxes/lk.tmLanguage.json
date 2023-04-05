@@ -137,9 +137,6 @@
 			"include": "#keywords"
 		},
 		{
-			"include": "#operators"
-		},
-		{
 			"include": "#numbers"
 		},
 		{
@@ -153,6 +150,9 @@
 		},
 		{
 			"include": "#standard_library"
+		},
+		{
+			"include": "#operators"
 		}
 	],
 	"repository": {
@@ -207,7 +207,7 @@
 					"name": "keyword.operator.logical.lk"
 				},
 				{
-					"match": "(\\+=|-=|/=|\\*=|%=|\\^=|\\.\\.=|=|++|--)",
+					"match": "(\\+=|-=|/=|\\*=|%=|\\^=|=|\\+\\+|--)",
 					"name": "keyword.operator.assignment.lk"
 				},
 				{
