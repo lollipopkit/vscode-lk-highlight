@@ -2,3 +2,4 @@ test.lua
 vsc-extension-quickstart.md
 
 *.vsix
+node_modules

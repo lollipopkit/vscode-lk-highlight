@@ -3,3 +3,4 @@
 .gitignore
 
 *.lua
+node_modules/

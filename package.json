@@ -1,22 +1,21 @@
 {
-    "name": "vscode-luau",
-    "displayName": "Roblox Lua/Luau Highlighting",
-    "description": "Provides highlighting (and nothing else!) for Roblox Lua/Luau",
+    "name": "vscode-lk-highlight",
+    "displayName": "lang lk highlighting",
+    "description": "Provides highlighting (and nothing else!) for lang lk",
     "keywords": [
-        "Luau",
-        "Roblox",
-        "Grammar"
+        "lk",
+        "highlight"
     ],
-    "version": "2.0.1",
+    "version": "0.0.1",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Dekkonot/vscode-luau"
+        "url": "https://github.com/lollipopkit/vscode-lk-highlight"
     },
     "bugs": {
-        "url": "https://github.com/Dekkonot/vscode-luau/issues"
+        "url": "https://github.com/lollipopkit/vscode-lk-highlight/issues"
     },
     "license": "MIT",
-    "publisher": "Dekkonot",
+    "publisher": "lollipopkit",
     "engines": {
         "vscode": "^1.48.0"
     },
@@ -26,25 +25,25 @@
     "contributes": {
         "languages": [
             {
-                "id": "lua",
+                "id": "lk",
                 "aliases": [
-                    "Roblox Lua",
-                    "Luau"
+                    "lk"
                 ],
                 "extensions": [
-                    ".lua",
-                    ".luau",
-                    ".rbxs"
+                    ".lk"
                 ],
                 "configuration": "./language-configuration.json"
             }
         ],
         "grammars": [
             {
-                "language": "lua",
-                "scopeName": "source.lua",
-                "path": "./syntaxes/lua.tmLanguage.json"
+                "language": "lk",
+                "scopeName": "source.lk",
+                "path": "./syntaxes/lk.tmLanguage.json"
             }
         ]
+    },
+    "dependencies": {
+        "@vscode/vsce": "^2.18.0"
     }
 }
