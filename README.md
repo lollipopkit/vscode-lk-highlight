@@ -1,7 +1,7 @@
-# VSCode-Luau
+# vscode-lk-highlight
 
-Basic syntax highlighting support for Roblox Lua (Luau). Does not include any snippets or fancy language features at this time.
+Basic syntax highlighting support for lk (.lk).
 
-## Features
-
-- Syntax highlighting for Luau
+## Bulid
+1. `npm install @vscode/vsce`
+2. `./node_modules/@vscode/vsce/vsce package`
