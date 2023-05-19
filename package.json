@@ -6,7 +6,7 @@
         "lk",
         "highlight"
     ],
-    "version": "0.0.1",
+    "version": "0.0.2",
     "repository": {
         "type": "git",
         "url": "https://github.com/lollipopkit/vscode-lk-highlight"
@@ -32,6 +32,7 @@
                 "extensions": [
                     ".lk"
                 ],
+                "firstLine": "^#!/.*\\blk\\b",
                 "configuration": "./language-configuration.json"
             }
         ],
@@ -44,6 +45,6 @@
         ]
     },
     "dependencies": {
-        "@vscode/vsce": "^2.18.0"
+        "@vscode/vsce": "^2.19.0"
     }
 }
