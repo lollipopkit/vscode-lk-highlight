@@ -333,6 +333,11 @@
 					"begin": "//",
 					"end": "$",
 					"name": "comment.line.double-dash.lk"
+				},
+				{
+					"begin": "^#!/.*\\blk\\b",
+					"end": "$",
+					"name": "comment.line"
 				}
 			]
 		},
