@@ -44,6 +44,10 @@
             }
         ]
     },
+    "scripts": {
+        "build": "vsce package",
+        "publish": "vsce publish"
+    },
     "dependencies": {
         "@vscode/vsce": "^2.19.0"
     }
