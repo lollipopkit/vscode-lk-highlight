@@ -1,7 +1,7 @@
 {
     "name": "vscode-lk-highlight",
-    "displayName": "lang lk highlighting",
-    "description": "Provides highlighting (and nothing else!) for lang lk",
+    "displayName": "LK Highlighting",
+    "description": "Provides highlighting for lang lk",
     "keywords": [
         "lk",
         "highlight"
@@ -49,6 +49,6 @@
         "publish": "vsce publish"
     },
     "dependencies": {
-        "@vscode/vsce": "^2.19.0"
+        "@vscode/vsce": "^3.4.0"
     }
 }

@@ -15,11 +15,11 @@
 				"3": {
 					"patterns": [
 						{
-							"match": "\\b(__add|__sub|__div|__idiv|__eq|__le|__len|__lt|__mod|__mul|__pow|__band|__bor|__bxor|__bnot|__shl|__shr|__unm)\\b",
-							"name": "variable.language.metamethod-arith.lk"
+							"match": "\\b(__add|__sub|__div|__idiv|__eq|__le|__len|__lt|__mod|__mul|__pow|__band|__bor|__bxor|__bnot|__shl|__shr|__unm|__str)\\b",
+							"name": "variable.language.metamethod.lk"
 						},
 						{
-							"match": "\\b(__call|__index|__metatable|__iter|__newindex|__str|__name)\\b",
+							"match": "\\b(__call|__index|__metatable|__iter|__newindex|__name)\\b",
 							"name": "variable.language.metamethod.lk"
 						}
 					],
@@ -135,13 +135,31 @@
 			}
 		},
 		{
-			"begin": "\\b(fn)\\s+([a-zA-Z_]\\w*)\\s*\\(.*?\\)\\s*(=>)",
+			"begin": "\\b(fn)\\s*\\(.*?\\)\\s*(=>)",
 			"beginCaptures": {
 				"1": {
 					"name": "keyword.control.lk"
 				},
 				"2": {
+					"name": "keyword.operator.arrow.lk"
+				}
+			},
+			"end": "(?=[,;\\)}]|$)",
+			"patterns": [
+				{
+					"include": "$self"
+				}
+			],
+			"name": "meta.arrow-function.lk"
+		},
+		{
+			"begin": "([a-zA-Z_]\\w*)\\s*:=\\s*(fn)\\s*\\(.*?\\)\\s*(=>)",
+			"beginCaptures": {
+				"1": {
 					"name": "entity.name.function.lk"
+				},
+				"2": {
+					"name": "keyword.control.lk"
 				},
 				"3": {
 					"name": "keyword.operator.arrow.lk"
@@ -153,7 +171,25 @@
 					"include": "$self"
 				}
 			],
-			"name": "meta.arrow-function.lk"
+			"name": "meta.arrow-function.assignment.lk"
+		},
+		{
+			"begin": "\\b(class)\\s+([a-zA-Z_]\\w*)",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.class.lk"
+				},
+				"2": {
+					"name": "entity.name.class.lk"
+				}
+			},
+			"end": "(?={)",
+			"patterns": [
+				{
+					"include": "$self"
+				}
+			],
+			"name": "meta.class.lk"
 		},
 		{
 			"include": "#comments"
@@ -178,6 +214,61 @@
 		},
 		{
 			"include": "#operators"
+		},
+		{
+			"begin": "\\b(import)\\s+(['\"])(.*?)\\2",
+			"beginCaptures": {
+				"1": {
+					"name": "keyword.control.import.lk"
+				},
+				"3": {
+					"name": "string.quoted.module.lk"
+				}
+			},
+			"end": "(?=\\s*[;\\n])",
+			"name": "meta.import.lk"
+		},
+		{
+			"match": "([a-zA-Z_]\\w*)\\s*(:=)\\s*\\b(import)\\s*\\(",
+			"captures": {
+				"1": {
+					"name": "variable.other.lk"
+				},
+				"2": {
+					"name": "keyword.operator.assignment.lk"
+				},
+				"3": {
+					"name": "keyword.control.import.lk"
+				}
+			},
+			"name": "meta.import.alias.lk"
+		},
+		{
+			"match": "\\b(new)\\s*\\((\\w+)\\)",
+			"captures": {
+				"1": {
+					"name": "keyword.control.new.lk"
+				},
+				"2": {
+					"name": "entity.name.class.lk"
+				}
+			},
+			"name": "meta.instance.lk"
+		},
+		{
+			"match": "([a-zA-Z_]\\w*)\\s*(:)\\s*([a-zA-Z_]\\w*)\\s*\\(",
+			"captures": {
+				"1": {
+					"name": "variable.other.lk"
+				},
+				"2": {
+					"name": "punctuation.accessor.colon.lk"
+				},
+				"3": {
+					"name": "entity.name.function.lk"
+				}
+			},
+			"name": "meta.method.call.lk"
 		}
 	],
 	"repository": {
@@ -188,7 +279,7 @@
 					"name": "support.constant.lk"
 				},
 				{
-					"match": "\\b(sync|math|math\\.huge|math\\.pi|os|strs|table|utf8|utf8\\.charpattern|coroutine)\\b",
+					"match": "\\b(sync|math|math\\.huge|math\\.pi|os|strs|table|utf8|utf8\\.charpattern|coroutine|fmt|to_str|str|printf)\\b",
 					"name": "support.constant.lk"
 				}
 			]
@@ -241,11 +332,15 @@
 				},
 				{
 					"match": "(\\#)",
-					"name": "keyword.operator.other.lk"
+					"name": "keyword.operator.length.lk"
 				},
 				{
 					"match": "(==|!=|>=|>|<=|<)",
 					"name": "keyword.operator.comparison.lk"
+				},
+				{
+					"match": "(~\\/|&|\\||\\^|~|<<|>>)",
+					"name": "keyword.operator.bitwise.lk"
 				}
 			]
 		},
@@ -302,28 +397,33 @@
 				{
 					"begin": "`",
 					"end": "`",
-					"name": "string.other.multiline.lk"
+					"patterns": [
+						{
+							"match": "^\\n",
+							"name": "constant.character.escape.newline.lk"
+						}
+					],
+					"name": "string.quoted.other.multiline.lk"
 				}
 			]
 		},
 		"string_escape": {
 			"patterns": [
 				{
-					"comment": "As it turns out, because backslashes have to be escaped in both JSON and Regex, a single backslash is represented as 4 here",
 					"match": "\\\\[abfnrtvz'\"\\\\]",
 					"name": "constant.character.escape.lk"
 				},
 				{
 					"match": "\\\\\\d{1,3}",
-					"name": "constant.character.escape.lk"
+					"name": "constant.character.escape.decimal.lk"
 				},
 				{
 					"match": "\\\\x[0-9a-fA-F]{2}",
-					"name": "constant.character.escape.lk"
+					"name": "constant.character.escape.hex.lk"
 				},
 				{
 					"match": "\\\\u\\{[0-9a-fA-F]*\\}",
-					"name": "constant.character.escape.lk"
+					"name": "constant.character.escape.unicode.lk"
 				}
 			]
 		},
@@ -335,15 +435,28 @@
 				},
 				{
 					"match": "\\b[a-zA-Z_]\\w*(?=:)",
-					"name": "entity.name.class.lk"
+					"name": "variable.other.lk"
 				},
 				{
 					"match": "\\b[a-zA-Z_]\\w*(?=\\()",
 					"name": "entity.name.function.lk"
 				},
 				{
+					"match": "(?<=:)([a-zA-Z_]\\w*)\\b(?=\\()",
+					"name": "entity.name.function.lk"
+				},
+				{
 					"match": "(?<=\\.)([a-zA-Z_]\\w*)\\b",
 					"name": "support.variable.property.lk"
+				},
+				{
+					"match": "\\[['\"](.*?)['\"]\\]",
+					"captures": {
+						"1": {
+							"name": "support.variable.property.quoted.lk"
+						}
+					},
+					"name": "meta.brackets.lk"
 				},
 				{
 					"match": "\\b([a-zA-Z_]\\w*)\\b",
@@ -418,7 +531,7 @@
 					"contentName": "meta.parameter.type.variable"
 				},
 				{
-					"match": "\\b(nil|str|num|bool|thread|userdata|any|table)\\b",
+					"match": "\\b(nil|str|num|bool|table)\\b",
 					"name": "support.type.primitive.lk"
 				},
 				{

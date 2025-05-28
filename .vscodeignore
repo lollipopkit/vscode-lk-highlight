@@ -4,3 +4,4 @@
 
 *.lua
 node_modules/
+examples/
